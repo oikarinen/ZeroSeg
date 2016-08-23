@@ -239,7 +239,21 @@ class sevensegment(device):
         'c': 0x4e,
         'd': 0x3d,
         'e': 0x4f,
-        'f': 0x47
+        'f': 0x47,
+        'g': 0x5e,
+        'h': 0x37,
+        'i': 0x30,
+        'j': 0x38,
+        'l': 0x0e,
+        'n': 0x15,
+        'o': 0x1d,
+        'p': 0x67,
+        'q': 0x7b,
+        'r': 0x05,
+        's': 0x5b,
+        't': 0x0f,
+        'u': 0x1c,
+        'y': 0x3b
     }
 
     def letter(self, deviceId, position, char, dot=False, redraw=True):
