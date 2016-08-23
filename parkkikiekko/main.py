@@ -18,13 +18,13 @@ GPIO.setup(switch2, GPIO.IN)
 
 device = led.sevensegment(cascaded=2)
 
-def roundTime(dt=None, roundTo=60):
-    if dt == None : 
-        dt = datetime.datetime.now()
-    seconds = (dt - dt.min).seconds
-    # // is a floor division, not a comment on following line:
-    rounding = (seconds+roundTo/2) // roundTo * roundTo
-    return dt + datetime.timedelta(0,rounding-seconds,-dt.microsecond)
+def ceil_dt(dt=None, delta=60):
+    return dt + (datetime.datetime.min - dt) % delta 
+
+def ceil_dt(dt, delta=60):
+    return dt + datetime.timedelta(minutes = delta - dt.minute % delta,
+                                       seconds = -(dt.second % 60),
+					microseconds = -(dt.microsecond % 1000000))
 
 # Display hh.mm for datetime object
 def displaytime(device, deviceId, dt):
@@ -79,7 +79,7 @@ while True:
         else:
             displaypark(device, 1)
     	    # parking time rounded to nearest following 30min
-            displaytime(device, 1, dt = roundTime(parked, roundTo=30*60))
+            displaytime(device, 1, dt = ceil_dt(parked, 30))
     # sleep 1/100 sec
     time.sleep(1.0/100)
 
