@@ -56,6 +56,7 @@ def displayaction(device, deviceId):
     time.sleep(0.4)
     device.clear(deviceId)
 
+level = 1
 parked = None
 counter = 0
 
@@ -70,7 +71,10 @@ while True:
 	displayaction(device, 1)
      
     elif not GPIO.input(switch2):
-        print "Button 2 pressed"
+	level = 1 + ( level % 15 )
+        device.brightness(level)
+        print "Button 2 pressed, increased brightness to: %s" % level
+	displayaction(device, 1)
 
     # only update display every 1 seconds
     if counter % 100 == 0:
